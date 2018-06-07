@@ -1,0 +1,11 @@
+.center{
+    
+    margin:0 auto !important;
+    display:inline !important;
+    text-align:center;
+}
+
+.out-center{
+    margin:auto;
+    width:600px;
+}
