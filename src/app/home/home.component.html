@@ -1,51 +1,72 @@
-<div class="container-fluid pl-0">
-    <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                            <a class="nav-link active" [routerLink]="['/Home']">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                                    Dashboard
-                                    <span class="sr-only">(current)</span>
-                            </a>
+<div class="wrapper">
+    <nav id="sidebar" [ngClass]="{active: toggle}">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header">
+            <span class="text-center">
+                <h3>Logo</h3>
+                <strong>LG</strong>
+            </span>
+        </div>
+        <!-- Sidebar Links -->
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse">
+                    <i class="material-icons">home</i>
+                    Home
+                </a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="#">Dashboard</a>
                     </li>
-                    <br>
-                    <li class="nav-item">
-                            <a class="nav-link active"  [routerLink]="['/Home/Customer']">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
-                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="9" cy="7" r="4"></circle>
-                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                    </svg>
-                                    Customers
-
-                            </a>
-                    </li>
-                    <li class="nav-item" >
-                            <a class="nav-link active" [routerLink]="['/Home/Gallery']">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers">
-                                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                                        Gallery
-                            </a>
-                    </li>
-                    <li class="nav-item" [routerLink]="['/Home/Reports']">
-                            <a class="nav-link active" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2">
-                                        <line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                                        Reports
-                            </a>
-                    </li>
-                   
                 </ul>
-            </div>
+            </li>
+            <li>
+                <a aria-expanded="false" [routerLink]="['/Home']">
+                    <i class="material-icons">people</i>
+                    Customers
+                </a>
+            </li>
+            <li>
+                <a aria-expanded="false" [routerLink]="['/Home']">
+                    <i class="material-icons">collections</i>
+                    Gallery
+                </a>
+            </li>
+            <li>
+                <a aria-expanded="false" [routerLink]="['/Home']">
+                    <i class="material-icons">bar_chart</i>
+                    Reports
+                </a>
+            </li>
+            <li>
+                <a aria-expanded="false" [routerLink]="['/Home']">
+                    <i class="material-icons">account_balance_wallet</i>
+                    Pricing
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="material-icons">phone</i>
+                    Contact
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <span style="width: 100%;">
+        <nav class="navbar navbar-light bg-light">
+            <span class="col-2">
+                <button class="navbar-toggler" (click)="onToggle()">
+                    <i class="material-icons">menu</i>
+                </button>
+            </span>
+            <span class="col-10">
+                <i class="material-icons md-48 float-right">person</i>
+                <a class="btn float-right" [routerLink]="['/Login']">Login</a>
+                <a class="btn float-right" [routerLink]="['/Register']">Register</a>
+            </span>
         </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          
+        <div class="container">
             <router-outlet></router-outlet>
-        </main>
-    </div>
-
+        </div>
+    </span>
 </div>

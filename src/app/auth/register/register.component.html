@@ -1,40 +1,45 @@
-<div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-        <form (ngSubmit)="onSignup(form)" #form="ngForm">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" name="username" ngModel required #username="ngModel"/>
-                <span class="text-danger" *ngIf="!username.valid && username.touched">Username is required</span>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" ngModel name="email" email required #email="ngModel" />
-                <span class="text-danger" *ngIf="!email.valid && email.touched">Valid email is required</span>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" ngModel name="password" required #password="ngModel"/>
-                <span class="text-danger" *ngIf="password.invalid && password.touched">Password is required</span>
-            </div>
-            <div class="form-group">
-                <label for=" Confirm password">Confirm password</label>
-                <input type="password" class="form-control" ngModel name="passtest" required #passtest="ngModel"/>
-                <span class="text-danger" *ngIf="passtest.touched && passtest == form.password">Password confirmation is required</span>
-            </div>
-            <div class="form-group">
-                <label for="firstName">First name</label>
-                <input type="text" class="form-control" ngModel name="firstName" required #firstName="ngModel"/>
-                <span class="text-danger" *ngIf="!firstName.valid && firstName.touched">First name is required</span>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last name</label>
-                <input type="text" class="form-control" ngModel name="lastName" required #lastName="ngModel"/>
-                <span class="text-danger" *ngIf="!lastName.valid && lastName.touched">Last name is required</span>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Sign up</button>
-                <a href="#" class="btn btn-default">Cancel</a>
-            </div>
-        </form>
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Please register</h1>
+    </div>
+    <div class="row justify-content-center" >
+        <div class="col-6">
+            <form (ngSubmit)="onSignup(form)" #form="ngForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username" ngModel required #username="ngModel" />
+                    <span class="text-danger" *ngIf="!username.valid && username.touched">Username is required</span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" ngModel name="email" email required #email="ngModel" />
+                    <span class="text-danger" *ngIf="!email.valid && email.touched">Valid email is required</span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" ngModel name="password" required #password="ngModel" />
+                    <span class="text-danger" *ngIf="password.invalid && password.touched">Password is required</span>
+                </div>
+                <div class="form-group">
+                    <label for=" Confirm password">Confirm password</label>
+                    <input type="password" class="form-control" ngModel name="passtest" required #passtest="ngModel" />
+                    <span class="text-danger" *ngIf="passtest.touched && passtest == form.password">Password confirmation is required</span>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First name</label>
+                    <input type="text" class="form-control" ngModel name="firstName" required #firstName="ngModel" />
+                    <span class="text-danger" *ngIf="!firstName.valid && firstName.touched">First name is required</span>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last name</label>
+                    <input type="text" class="form-control" ngModel name="lastName" required #lastName="ngModel" />
+                    <span class="text-danger" *ngIf="!lastName.valid && lastName.touched">Last name is required</span>
+                </div>
+                <div class="form-group">
+                    <button [routerLink]="['/Login']" type="submit" class="btn btn-default" [disabled]="!form.valid">Sign up</button>
+                    <a [routerLink]="['/Login']" class="btn btn-default">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

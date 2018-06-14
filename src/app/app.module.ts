@@ -42,6 +42,7 @@ const routes: Routes = [
     path: 'Home',
     component: HomeComponent,
     children: ChildRoutes,
+    // canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
   },
@@ -51,7 +52,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
   },
-  { path: '**', redirectTo: '/Home' }
+  { path: '**', redirectTo: '/Login' }
 ];
 
 @NgModule({
