@@ -2,40 +2,57 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, provideRoutes, Routes } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/interceptor';
 
-
 import { AppComponent } from './app.component';
-import {LoginComponent} from './login/login.component';
-import {RegisterComponent} from './register/register.component';
-import {HomeComponent} from './home/home.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { HomeComponent } from './home/home.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { CustomerComponent } from './customer/customer.component';
-import {PricingComponent} from './pricing/pricing.component';
+import { PricingComponent } from './pricing/pricing.component';
 import { DataService } from './shared/dataServices';
+import { AuthGuard } from './auth/auth-guard.service';
+import { RoleConstants } from './shared/role-constants';
+import { AuthService } from './auth/auth.service';
 
-
-
-
-const ChildRoutes=[
-  {path:"Dashboard" , component: HomeComponent},
-  {path:"Gallery", component: GalleryComponent},
-  {path:"Customer", component: CustomerComponent}
-  
+const ChildRoutes = [
+  { path: 'Dashboard', component: HomeComponent },
+  { path: 'Gallery', component: GalleryComponent },
+  { path: 'Customer', component: CustomerComponent }
 ];
 
-const routes = [
-  { path: "Login", component: LoginComponent},
-  { path: "Register", component: RegisterComponent},
-  { path: "Home", component: HomeComponent, children: ChildRoutes},
-  { path: "Pricing", component: PricingComponent}
+const routes: Routes = [
+  {
+    path: 'Login',
+    component: LoginComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [RoleConstants.anonymousRole] }
+  },
+  {
+    path: 'Register',
+    component: RegisterComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [RoleConstants.anonymousRole] }
+  },
+  {
+    path: 'Home',
+    component: HomeComponent,
+    children: ChildRoutes,
+    canActivateChild: [AuthGuard],
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+  },
+  {
+    path: 'Pricing',
+    component: PricingComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+  },
+  { path: '**', redirectTo: '/Home' }
 ];
-
-
 
 @NgModule({
   declarations: [
@@ -51,15 +68,16 @@ const routes = [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {
-        useHash: true,
-        enableTracing: false
+      useHash: true,
+      enableTracing: false
     }),
     FormsModule,
-    ReactiveFormsModule,
-    
+    ReactiveFormsModule
   ],
   providers: [
     DataService,
+    AuthGuard,
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -68,4 +86,4 @@ const routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

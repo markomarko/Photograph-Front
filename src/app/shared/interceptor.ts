@@ -3,29 +3,26 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor} from '@angular/common/http';
+  HttpInterceptor
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-    constructor() {}
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  constructor() {}
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log('Intercepted');
 
-    console.log("Intercepted");
+    const jwt = localStorage.access_token;
 
-    let jwt = localStorage.access_token;
-    
-    if (jwt) 
-    {
-        console.log(request)
-        request = request.clone(
-            {
-                setHeaders: 
-                { 
-                    Authorization: `Bearer ${jwt}`
-                }
-            });
-        console.log(request)
+    if (jwt) {
+      console.log(request);
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${jwt}`
+        }
+      });
+      console.log(request);
     }
 
     return next.handle(request);

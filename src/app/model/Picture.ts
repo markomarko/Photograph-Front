@@ -1,5 +1,3 @@
-import { DataService } from "../shared/dataServices";
-
 
 export class Picture {
 
@@ -16,7 +14,4 @@ export class Picture {
         this.selected = false;
         console.log(this);
     }
-
-
-
 }
