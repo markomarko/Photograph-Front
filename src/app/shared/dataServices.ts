@@ -19,10 +19,6 @@ export class DataService {
     constructor(private http: HttpClient) {
     }
 
-    public login(creds): Observable<any> {
-        return this.http.post("http://localhost:51159/core/connect/token", creds, httpOptions);
-    }
-
     public postPicture(image: Picture) {
 
         return this.http.post("http://localhost:54040/api/Photo/post", JSON.stringify(image), httpOptions);
@@ -36,11 +32,11 @@ export class DataService {
     public getUserId(): number {
         let jwt = localStorage.access_token;
 
-        let jwtData = jwt.split('.')[1]
-        let decodedJwtJsonData = window.atob(jwtData)
-        let decodedJwtData = JSON.parse(decodedJwtJsonData)
+        let jwtData = jwt.split('.')[1];
+        let decodedJwtJsonData = window.atob(jwtData);
+        let decodedJwtData = JSON.parse(decodedJwtJsonData);
 
-        let id = decodedJwtData.id
+        let id = decodedJwtData.id;
         console.log(id);
         return id;
     }

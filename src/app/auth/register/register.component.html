@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <div class="container">
     <div class="row justify-content-center">
         <h1>Please register</h1>
@@ -36,8 +37,8 @@
                     <span class="text-danger" *ngIf="!lastName.valid && lastName.touched">Last name is required</span>
                 </div>
                 <div class="form-group">
-                    <button [routerLink]="['/Login']" type="submit" class="btn btn-default" [disabled]="!form.valid">Sign up</button>
-                    <a [routerLink]="['/Login']" class="btn btn-default">Cancel</a>
+                    <button [routerLink]="['/Login']" type="submit" class="btn btn-primary" [disabled]="!form.valid">Sign up</button>
+                    <button (click)="resetForm(form)" class="btn btn-default">Cancel</button>
                 </div>
             </form>
         </div>

@@ -18,6 +18,8 @@ import { DataService } from './shared/dataServices';
 import { AuthGuard } from './auth/auth-guard.service';
 import { RoleConstants } from './shared/role-constants';
 import { AuthService } from './auth/auth.service';
+import { NavbarComponent } from './home/navbar/navbar.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const ChildRoutes = [
   { path: 'Dashboard', component: HomeComponent },
@@ -42,7 +44,7 @@ const routes: Routes = [
     path: 'Home',
     component: HomeComponent,
     children: ChildRoutes,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     canActivateChild: [AuthGuard],
     data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
   },
@@ -51,6 +53,10 @@ const routes: Routes = [
     component: PricingComponent,
     canActivate: [AuthGuard],
     data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+  },
+  {
+    path: 'Welcome',
+    component: WelcomeComponent
   },
   { path: '**', redirectTo: '/Login' }
 ];
@@ -63,7 +69,9 @@ const routes: Routes = [
     HomeComponent,
     GalleryComponent,
     CustomerComponent,
-    PricingComponent
+    PricingComponent,
+    NavbarComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,

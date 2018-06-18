@@ -5,5 +5,10 @@
 
 export const environment = {
   production: false,
-  webApiBaseUrl: 'http://localhost:54040/api'
+  webApiBaseUrl: 'http://localhost:54040/api',
+  identityBaseUrl: 'http://localhost:51141/core',
+  grantType: 'password',
+  clientId: 'PhotographId',
+  scope: 'Photograph',
+  clientSecret: 'photographSecret'
 };

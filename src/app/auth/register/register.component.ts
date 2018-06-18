@@ -23,7 +23,11 @@ export class RegisterComponent {
     );
     console.log(user);
     this.authService.register(user).subscribe(() => {
-        this.router.navigate(['/Login']);
+      this.router.navigate(['/Login']);
     });
+  }
+
+  resetForm(form: NgForm) {
+    form.reset();
   }
 }

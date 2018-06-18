@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, NgModuleRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../../shared/dataServices';
 import { HttpParams } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'login-component',
@@ -9,34 +12,28 @@ import { HttpParams } from '@angular/common/http';
   styleUrls: ['login.component.css']
 })
 export class LoginComponent {
-  constructor(private router: Router, private data: DataService) {}
-
-  public creds = {
-    username: '',
-    password: '',
-    grant_type: 'password',
-    client_id: 'PhotographId',
-    scope: 'Photograph',
-    client_secret: 'photographSecret'
-  };
+  constructor(private router: Router, private data: AuthService) {}
 
   private token: any;
-  private expire_in: any;
-  onLogin() {
+  onLogin(form: NgForm) {
     const httpParams = new HttpParams()
-      .append('username', this.creds.username)
-      .append('password', this.creds.password)
-      .append('grant_type', this.creds.grant_type)
-      .append('client_id', this.creds.client_id)
-      .append('scope', this.creds.scope)
-      .append('client_secret', this.creds.client_secret);
+      .append('username', form.value.username)
+      .append('password', form.value.password)
+      .append('grant_type', environment.grantType)
+      .append('client_id', environment.clientId)
+      .append('scope', environment.scope)
+      .append('client_secret', environment.clientSecret);
 
     console.log(httpParams);
     this.data.login(httpParams).subscribe(token => {
       this.token = token;
       localStorage.setItem('access_token', this.token.access_token);
       localStorage.setItem('expires_in', this.token.expires_in);
+      this.router.navigate(['/Home']);
     });
-    this.router.navigate(['/Home']);
+  }
+
+  public resetForm(form: NgForm) {
+    form.reset();
   }
 }

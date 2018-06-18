@@ -1,0 +1,27 @@
+<nav class="navbar navbar-light bg-light">
+  <span class="col-2">
+    <span *ngIf="!isLogedIn" class="navbar-brand text-center">
+      <a [routerLink]="['/Welcome']">LG</a>
+    </span>
+    <button ng-disabled="isLogedIn" *ngIf="isLogedIn" id="togglerBtn" class="navbar-toggler" (click)="onToggle()">
+      <i class="material-icons">menu</i>
+    </button>
+  </span>
+  <span class="col-7"></span>
+  <span *ngIf="!isLogedIn" class="col-2">
+    <a class="btn float-right" [routerLink]="['/Login']">Login</a>
+    <a class="btn float-right" [routerLink]="['/Register']">Register</a>
+  </span>
+  <span *ngIf="isLogedIn" class="col-2">
+    <div class="dropdown">
+      <a href="#" class="dropdown-toggle float-right" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">{{username}}</a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" [routerLink]="['/Home']">Home</a>
+        <a class="dropdown-item" [routerLink]="['/Welcome']">Profile</a>
+        <a class="dropdown-item" [routerLink]="['/Welcome']">Log out</a>
+      </div>
+    </div>
+    <i class="material-icons float-right">account_circle</i>
+  </span>
+</nav>

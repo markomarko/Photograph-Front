@@ -11,8 +11,7 @@ export class HomeComponent {
 
   constructor(private router: Router) {}
 
-  onToggle() {
-    console.log('toggle');
-    this.toggle = !this.toggle;
+  onToggle(isToggle: boolean) {
+    this.toggle = isToggle;
   }
 }

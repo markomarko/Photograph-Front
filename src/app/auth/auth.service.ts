@@ -16,6 +16,17 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   public register(user: User): Observable<any> {
-      return this.http.post(environment.webApiBaseUrl + '/User', JSON.stringify(user), httpOptions);
+    return this.http.post(
+      environment.webApiBaseUrl + '/User',
+      JSON.stringify(user),
+      httpOptions
+    );
+  }
+
+  public login(creds): Observable<any> {
+    return this.http.post(
+      environment.identityBaseUrl + '/connect/token',
+      creds
+    );
   }
 }

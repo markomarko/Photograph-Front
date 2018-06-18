@@ -1,0 +1,9 @@
+#togglerBtn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #togglerBtn {
+    display: block;
+  }
+}
