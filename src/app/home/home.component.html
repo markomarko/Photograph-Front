@@ -10,18 +10,18 @@
         <!-- Sidebar Links -->
         <ul class="list-unstyled components">
             <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse">
+                <a href="#homeSubmenu" data-toggle="collapse" >
                     <i class="material-icons">home</i>
                     Home
                 </a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
-                        <a href="#">Dashboard</a>
+                        <a [routerLink]="['/Home']">Dashboard</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a aria-expanded="false" [routerLink]="['/Home']">
+                <a aria-expanded="false" [routerLink]="['/Home/Customer']">
                     <i class="material-icons">people</i>
                     Customers
                 </a>
