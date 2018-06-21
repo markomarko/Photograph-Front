@@ -20,11 +20,24 @@ import { RoleConstants } from './shared/role-constants';
 import { AuthService } from './auth/auth.service';
 import { NavbarComponent } from './home/navbar/navbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AlbumComponent } from './gallery/album/album.component';
+
+
+
 
 const ChildRoutes = [
-  { path: 'Dashboard', component: HomeComponent },
-  { path: 'Gallery', component: GalleryComponent },
-  { path: 'Customer', component: CustomerComponent }
+  {
+    path: 'Gallery',
+    component: GalleryComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+  },
+  {
+    path: 'Gallery/Album/:id',
+    component: AlbumComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+  }
 ];
 
 const routes: Routes = [
@@ -45,7 +58,6 @@ const routes: Routes = [
     component: HomeComponent,
     children: ChildRoutes,
     canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
     data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
   },
   {
@@ -68,6 +80,7 @@ const routes: Routes = [
     RegisterComponent,
     HomeComponent,
     GalleryComponent,
+    AlbumComponent,
     CustomerComponent,
     PricingComponent,
     NavbarComponent,

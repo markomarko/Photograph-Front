@@ -27,7 +27,7 @@
                 </a>
             </li>
             <li>
-                <a aria-expanded="false" [routerLink]="['/Home']">
+                <a aria-expanded="false" [routerLink]="['/Home/Gallery']">
                     <i class="material-icons">collections</i>
                     Gallery
                 </a>
@@ -54,7 +54,7 @@
     </nav>
     <span style="width: 100%;">
         <app-navbar (toggleEvent)="onToggle($event)"></app-navbar>
-        <div class="container">
+        <div class="container" style="max-width:1500px;">
             <router-outlet></router-outlet>
         </div>
     </span>
