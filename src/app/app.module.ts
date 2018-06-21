@@ -20,12 +20,14 @@ import { RoleConstants } from './shared/role-constants';
 import { AuthService } from './auth/auth.service';
 import { NavbarComponent } from './home/navbar/navbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ToDateTimePipe } from './shared/toDateTimePipe';
 import { AlbumComponent } from './gallery/album/album.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
-
-
-const ChildRoutes = [
+const HomeChildRoutes = [
+  { path: 'Dashboard', component: HomeComponent },
+  { path: 'Customer', component: CustomerComponent },
   {
     path: 'Gallery',
     component: GalleryComponent,
@@ -35,6 +37,18 @@ const ChildRoutes = [
   {
     path: 'Gallery/Album/:id',
     component: AlbumComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+  },
+  {
+    path: 'Customer',
+    component: CustomerComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+  },
+  {
+    path: 'Profile/:id',
+    component: ProfileComponent,
     canActivate: [AuthGuard],
     data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
   }
@@ -56,7 +70,7 @@ const routes: Routes = [
   {
     path: 'Home',
     component: HomeComponent,
-    children: ChildRoutes,
+    children: HomeChildRoutes,
     canActivate: [AuthGuard],
     data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
   },
@@ -84,7 +98,9 @@ const routes: Routes = [
     CustomerComponent,
     PricingComponent,
     NavbarComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    ToDateTimePipe,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -108,4 +124,4 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

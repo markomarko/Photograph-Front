@@ -1,3 +1,29 @@
-<div>
-    <button (click)=get()> Tekst</button>
+
+<div class="container" >
+    <h3 class="card-title">Customers</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th *ngIf="isAdmin" scope="col">Subscribed until</th>
+            <th *ngIf="isAdmin" scope="col">Role</th>
+            <th *ngIf="isAdmin" scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{user.userName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td *ngIf="isAdmin" >{{user.validUntil | toDateTime | date: 'medium'}}</td>
+            <td *ngIf="isAdmin" ><a (click)="banSubscriber()" class="btn btn-danger">Suspend</a></td>
+        </tr>
+    </tbody>
+</table>
 </div>

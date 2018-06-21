@@ -27,8 +27,6 @@ import { Picture } from '../../model/Picture';
             this.ConvertBase64(file, model);
         });
         console.log(this.selectedFile);
-
-        
     }
 
     public deletePhoto(idPhoto) {

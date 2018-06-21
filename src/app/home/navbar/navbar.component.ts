@@ -1,12 +1,6 @@
-import {
-  EventEmitter,
-  Component,
-  Output,
-  DoCheck,
-  OnInit
-} from '@angular/core';
+import { EventEmitter, Component, Output, OnInit } from '@angular/core';
 import { JwtToken } from '../../model/JwtToken';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
@@ -17,17 +11,24 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class NavbarComponent implements OnInit {
   public isLogedIn = false;
   public username: string;
+  public id: string;
   private toggle = false;
-
+  private breadCrumbs: string[] = [];
   @Output() toggleEvent = new EventEmitter();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
     const token = this.getDecodedToken(localStorage.access_token);
     if (token) {
       this.isLogedIn = !this.router.url.startsWith('Home');
       this.username = token.username;
+      this.id = token.id;
+      this.route.url.subscribe(() => {
+        this.breadCrumbs = this.router.url
+          .split('/')
+          .filter(path => path !== '');
+      });
     } else {
       this.isLogedIn = false;
       this.username = '';
@@ -37,6 +38,12 @@ export class NavbarComponent implements OnInit {
   onToggle() {
     this.toggle = !this.toggle;
     this.toggleEvent.emit(this.toggle);
+  }
+
+  logOut() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('expires_in');
+    this.router.navigate(['/Welcome']);
   }
 
   private getDecodedToken(token: string): JwtToken {

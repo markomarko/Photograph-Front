@@ -1,25 +1,32 @@
-import { Component } from '@angular/core';
-import {Router} from '@angular/router';
-import { Route } from '@angular/router/src/config';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../shared/dataServices';
-
-
+import { User } from '../model/user';
 
 @Component({
-    selector:'customer-component',
-    templateUrl:"customer.component.html",
-    styles:[]
+  selector: 'app-customer-component',
+  templateUrl: 'customer.component.html',
+  styles: []
 })
+export class CustomerComponent implements OnInit {
+  public users: User[] = [];
+  public isAdmin = false;
 
-export class CustomerComponent{
+  constructor(private route: Router, private data: DataService) {}
 
-    constructor(private route:Router, private data: DataService){}
-
-    
-    private users:any;
-
-    get(){
-       this.data.getUserId();
+  ngOnInit(): void {
+    const token = this.data.getDecodedToken(localStorage.access_token);
+    if (token) {
+      this.isAdmin = token.role === 'Admin';
+    } else {
+      this.isAdmin = false;
     }
+    this.getUsers();
+  }
 
+  getUsers() {
+    this.data.getUsers().subscribe((apiUsers: User[]) => {
+      this.users = apiUsers;
+    });
+  }
 }

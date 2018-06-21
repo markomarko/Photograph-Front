@@ -41,7 +41,7 @@
                     <a [routerLink]="['/Home/Gallery/Album', a.id]"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
                     <button type="button" (click)="deleteAlbum(a.id)" class="btn btn-sm btn-outline-secondary">Delete</button>
                   </div>
-                  <small class="text-muted">{{a.dataTime | date}}</small>
+                  <small class="text-muted">{{a.dataTime | date: 'medium'}}</small>
                 </div>
               </div>
             </div>
