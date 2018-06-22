@@ -21,6 +21,7 @@ import { AuthService } from './auth/auth.service';
 import { NavbarComponent } from './home/navbar/navbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ToDateTimePipe } from './shared/toDateTimePipe';
+import { AlbumComponent } from './gallery/album/album.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Step1Component } from './auth/register/step1/step1.component';
 import { Step2Component } from './auth/register/step2/step2.component';
@@ -28,9 +29,22 @@ import { Step3Component } from './auth/register/step3/step3.component';
 import { Step4Component } from './auth/register/step4/step4.component';
 import { Step5Component } from './auth/register/step5/step5.component';
 
+
 const HomeChildRoutes = [
   { path: 'Dashboard', component: HomeComponent },
-  { path: 'Gallery', component: GalleryComponent },
+  { path: 'Customer', component: CustomerComponent },
+  {
+    path: 'Gallery',
+    component: GalleryComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+  },
+  {
+    path: 'Gallery/Album/:id',
+    component: AlbumComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+  },
   {
     path: 'Customer',
     component: CustomerComponent,
@@ -85,6 +99,7 @@ const routes: Routes = [
     RegisterComponent,
     HomeComponent,
     GalleryComponent,
+    AlbumComponent,
     CustomerComponent,
     PricingComponent,
     NavbarComponent,
@@ -119,4 +134,4 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

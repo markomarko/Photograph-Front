@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   webApiBaseUrl: 'http://localhost:54040/api',
-  identityBaseUrl: 'http://localhost:51141/core',
+  identityBaseUrl: 'http://localhost:51159/core',
   grantType: 'password',
   clientId: 'PhotographId',
   scope: 'Photograph',
