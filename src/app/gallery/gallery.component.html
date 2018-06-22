@@ -18,8 +18,8 @@
                       <input type="text" class="form-control" name="description" ngModel #description="ngModel" required>
                       <div class="text-danger" *ngIf="!description.valid && description.touched">Description is required</div>
                     </div>
-                    <select class='select-option' required  (ngModelChange)='onOptionsSelected($event)'>
-                        <option class='option' *ngFor='let client of clients' value="client.userName">{{client.userName}}</option>
+                    <select class='select-option' required [(ngModel)]="clientid"  (ngModelChange)='onOptionsSelected($event)'>
+                        <option class='option' *ngFor='let client of clients' [value]="client.id">{{client.userName}}</option>
                     </select>
                     <br><br>
                     <div class="form-group ">

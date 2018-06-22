@@ -32,7 +32,7 @@ export class GalleryComponent implements OnInit {
 
   newAlbum(form: NgForm) {
     let id = this.data.getUserId();
-    
+    console.log(this.clientid);
     let album = new Album(id, form.value.name, form.value.description, this.clientid);
     this.data.postAlbum(album)
       .subscribe(() => {
@@ -50,7 +50,10 @@ export class GalleryComponent implements OnInit {
   }
 
   onOptionsSelected(comboid): any {
+    console.log(comboid);
+    console.log(this.clientid);
     this.clientid = comboid;
+    console.log(this.clientid);
   }
 
   public resetForm(form: NgForm) {

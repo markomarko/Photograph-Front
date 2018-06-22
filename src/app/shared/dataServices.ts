@@ -54,6 +54,8 @@ export class DataService {
         });
     }
 
+    
+
     public getUser(id: string): Observable<any> {
         return this.http.get<User>(environment.webApiBaseUrl + '/User/' + id, {
             responseType: 'json'
