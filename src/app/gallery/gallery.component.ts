@@ -29,14 +29,18 @@ export class GalleryComponent implements OnInit {
     let id = this.data.getUserId();
     let album = new Album(id, form.value.name, form.value.description);
     this.data.postAlbum(album)
-      .subscribe();
-    this.ngOnInit();
-    this.resetForm(form);
+      .subscribe(() => {
+        this.ngOnInit();
+        this.resetForm(form);
+      });
   }
 
   deleteAlbum(idAlbum) {
     this.data.deleteAlbum(idAlbum)
-      .subscribe();
+      .subscribe(() => {
+        this.ngOnInit();
+      }
+      );
   }
 
   public resetForm(form: NgForm) {

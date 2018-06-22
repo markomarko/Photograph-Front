@@ -13,7 +13,6 @@ export class Picture {
         this.name = name;
         this.context = image;
         this.selected = false;
-        parseInt(albid, this.albumId);
-        console.log(this.albumId);
+        this.albumId = +albid;
     }
 }

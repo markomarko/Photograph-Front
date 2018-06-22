@@ -31,8 +31,7 @@ export class DataService {
     }
 
     public deletePicture(id: number) {
-        let userId = this.getUserId();
-        return this.http.delete(environment.webApiBaseUrl + '/Photo/delete?id=' + JSON.stringify(id) + '&userid=' + userId, httpOptions);
+        return this.http.delete(environment.webApiBaseUrl + '/Photo/delete?id=' + JSON.stringify(id), httpOptions);
     }
 
     // Album Methods

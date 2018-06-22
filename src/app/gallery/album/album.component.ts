@@ -31,7 +31,9 @@ import { Picture } from '../../model/Picture';
 
     public deletePhoto(idPhoto) {
         this.data.deletePicture(idPhoto)
-            .subscribe();
+            .subscribe(() => {
+                this. ngOnInit();
+            });
     }
 
     private ConvertBase64(image: File, model: {counter, size}): void {
@@ -46,6 +48,7 @@ import { Picture } from '../../model/Picture';
           if (model.counter === model.size) {
             this.data.postPicture(this.selectedFile).subscribe();
             this.selectedFile = [];
+            this.ngOnInit();
           }
         };
     }
