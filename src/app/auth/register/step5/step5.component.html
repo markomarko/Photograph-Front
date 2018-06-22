@@ -22,7 +22,7 @@
           [ngStyle]="{'border-color': !CVC.valid && CVC.touched? 'red' : none}" />
       </div>
       <div class="float-right">
-        <button (click)="resetForm(form)" class="btn btn-default">Cancel</button>
+        <a (click)="resetForm(form)" class="btn btn-default">Cancel</a>
         <button type="submit" class="btn btn-success" [disabled]="!form.valid">Finish</button>
       </div>
     </form>
