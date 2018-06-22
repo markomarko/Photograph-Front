@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+  <div class="col-6">
+    <form (ngSubmit)="onNext(form)" #form="ngForm" class="form-sign">
+      <div data-balloon="Required" data-balloon-pos="right">
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" class="form-control" placeholder="Username" name="username" ngModel required #username="ngModel" autofocus
+          [ngStyle]="{'border-color': !username.valid && username.touched? 'red' : none}" />
+      </div>
+      <div data-balloon="Required" data-balloon-pos="right">
+        <label for="email" class="sr-only">Email</label>
+        <input type="email" class="form-control" placeholder="Email" id="email" ngModel name="email" email required #email="ngModel"
+          [ngStyle]="{'border-color': !email.valid && email.touched? 'red' : none}" />
+      </div>
+      <div data-balloon="Required" data-balloon-pos="right">
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" class="form-control" placeholder="Password" ngModel name="password" required #password="ngModel" [ngStyle]="{'border-color': !password.valid && password.touched? 'red' : none}"
+        />
+      </div>
+      <div data-balloon="Required" data-balloon-pos="right">
+        <label for=" Confirm password" class="sr-only">Confirm password</label>
+        <input type="password" class="form-control" placeholder="Confirm password" ngModel name="passtest" required #passtest="ngModel"
+          [ngStyle]="{'border-color': (passtest.touched && (passtest === form.password))? 'red' : none}" />
+      </div>
+      <div data-balloon="Required" data-balloon-pos="right">
+        <label for="firstName" class="sr-only">First name</label>
+        <input type="text" class="form-control" placeholder="First name" ngModel name="firstName" required #firstName="ngModel" [ngStyle]="{'border-color': !firstName.valid && firstName.touched? 'red' : none}"
+        />
+      </div>
+      <div data-balloon="Required" data-balloon-pos="right">
+        <label for="lastName" class="sr-only">Last name</label>
+        <input type="text" class="form-control" placeholder="Last name" ngModel name="lastName" required #lastName="ngModel" [ngStyle]="{'border-color': !lastName.valid && lastName.touched? 'red' : none}"
+        />
+      </div>
+      <div class="float-right">
+        <button (click)="resetForm(form)" class="btn btn-default">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Next</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<button class="btn btn-default" (click)="previousStep(1)">Back</button>

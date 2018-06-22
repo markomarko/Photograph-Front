@@ -10,5 +10,6 @@ export const environment = {
   grantType: 'password',
   clientId: 'PhotographId',
   scope: 'Photograph',
-  clientSecret: 'photographSecret'
+  clientSecret: 'photographSecret',
+  StripePK: 'pk_test_sqRl24yxxc8AN2GvTQpOWx0h'
 };

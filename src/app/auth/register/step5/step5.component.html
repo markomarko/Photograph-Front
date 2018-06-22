@@ -1,0 +1,32 @@
+<div class="row justify-content-center">
+  <div class="col-6">
+    <form (ngSubmit)="getToken(form)" #form="ngForm" class="form-sign">
+      <div data-balloon="Required" data-balloon-pos="right">
+        <label for="username" class="sr-only">Card number</label>
+        <input type="text" class="form-control" placeholder="Card number" name="cardNumber" ngModel required #cardNumber="ngModel" autofocus
+          [ngStyle]="{'border-color': !cardNumber.valid && cardNumber.touched? 'red' : none}" />
+      </div>
+      <div data-balloon="Required" data-balloon-pos="right">
+        <label for="MM" class="sr-only">MM</label>
+        <input type="text" class="form-control" placeholder="MM" ngModel name="MM" required #MM="ngModel"
+          [ngStyle]="{'border-color': !MM.valid && MM.touched? 'red' : none}" />
+      </div>
+      <div data-balloon="Required" data-balloon-pos="right">
+        <label for="YY" class="sr-only">YY</label>
+        <input type="text" class="form-control" placeholder="YY" ngModel name="YY" required #YY="ngModel"
+          [ngStyle]="{'border-color': !YY.valid && YY.touched? 'red' : none}" />
+      </div>
+      <div data-balloon="Required" data-balloon-pos="right">
+        <label for="CVC" class="sr-only">CVC</label>
+        <input type="text" class="form-control" placeholder="CVC" ngModel name="CVC" required #CVC="ngModel"
+          [ngStyle]="{'border-color': !CVC.valid && CVC.touched? 'red' : none}" />
+      </div>
+      <div class="float-right">
+        <button (click)="resetForm(form)" class="btn btn-default">Cancel</button>
+        <button type="submit" class="btn btn-success" [disabled]="!form.valid">Finish</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<button class="btn btn-default" (click)="previousStep(1)">Back</button>
