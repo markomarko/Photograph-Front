@@ -32,7 +32,7 @@
         />
       </div>
       <div class="float-right">
-        <button (click)="resetForm(form)" class="btn btn-default">Cancel</button>
+        <a (click)="resetForm(form)" class="btn btn-default">Cancel</a>
         <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Next</button>
       </div>
     </form>

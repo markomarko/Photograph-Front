@@ -1,7 +1,22 @@
 <div class="container">
-  <h3 class="card-title">Profile</h3>
-  <div>{{user.userName}}</div>
-  <div>{{user.email}}</div>
-  <div>{{user.firstName}}</div>
-  <div>{{user.lastName}}</div>
+  <div class="row justify-content-center">
+    <h1>Profile information</h1>
+  </div>
+  <br>
+  <div class="row justify-content-center">
+    <div class="col-6">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" placeholder="{{user.userName}}" value="{{user.userName}}" />
+        </div>
+        <div class="form-group">
+          <label >Email</label>
+          <input type="text" class="form-control" placeholder="{{user.email}}" value="{{user.email}}" >
+        </div>
+        <div class="form-group">
+          <label>Subscription expiration</label>
+          <input type="text" class="form-control" placeholder="{{user.validUntil | toDateTime | date: 'medium'}}" value="{{user.validUntil | toDateTime | date: 'medium'}}">
+        </div>
+    </div>
+  </div>
 </div>
