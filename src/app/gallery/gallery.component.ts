@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Picture } from '../model/Picture';
 import { DataService } from '../shared/dataServices';
 import { Album } from '../model/Album';
 import { NgForm } from '@angular/forms';
+import { User } from '../model/user';
 
 @Component({
   selector: 'gallery-component',
@@ -15,6 +15,8 @@ export class GalleryComponent implements OnInit {
 
   selectedFile: File;
   public albums: Album[];
+  public clients: User[];
+  public clientid: any;
 
   constructor(private router: Router, private data: DataService) {
 
@@ -23,11 +25,15 @@ export class GalleryComponent implements OnInit {
   ngOnInit() {
     this.data.getAlbum()
       .subscribe(data => this.albums = data);
+
+    this.data.getUsers().
+      subscribe(data => this.clients = data);
   }
 
   newAlbum(form: NgForm) {
     let id = this.data.getUserId();
-    let album = new Album(id, form.value.name, form.value.description);
+    
+    let album = new Album(id, form.value.name, form.value.description, this.clientid);
     this.data.postAlbum(album)
       .subscribe(() => {
         this.ngOnInit();
@@ -41,6 +47,10 @@ export class GalleryComponent implements OnInit {
         this.ngOnInit();
       }
       );
+  }
+
+  onOptionsSelected(comboid): any {
+    this.clientid = comboid;
   }
 
   public resetForm(form: NgForm) {

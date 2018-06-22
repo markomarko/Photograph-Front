@@ -18,6 +18,10 @@
                       <input type="text" class="form-control" name="description" ngModel #description="ngModel" required>
                       <div class="text-danger" *ngIf="!description.valid && description.touched">Description is required</div>
                     </div>
+                    <select class='select-option' required  (ngModelChange)='onOptionsSelected($event)'>
+                        <option class='option' *ngFor='let client of clients' value="client.userName">{{client.userName}}</option>
+                    </select>
+                    <br><br>
                     <div class="form-group ">
                       <button type="submit" class="btn btn-success" value="Login" [disabled]="!form.valid">Create</button>
                       <button (click)="resetForm(form)" class="btn btn-default">Cancel</button>
