@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { User } from '../../model/user';
 import { AuthService } from '../auth.service';
+import { Subscriber } from '../../model/Subscriber';
 
 @Component({
   selector: 'app-register-component',
@@ -10,24 +11,45 @@ import { AuthService } from '../auth.service';
   styleUrls: ['register.component.css']
 })
 export class RegisterComponent {
-  constructor(private router: Router, private authService: AuthService) {}
+  private step: number;
+  private addStep: number;
+  private maxStep = 5;
+  private subscriber: Subscriber = new Subscriber();
 
-  onSignup(form: NgForm) {
-    const user = new User(
-      form.value.username,
-      form.value.password,
-      form.value.firstName,
-      form.value.lastName,
-      form.value.email,
-      new Array('Subscriber')
-    );
-    console.log(user);
-    this.authService.register(user).subscribe(() => {
-      this.router.navigate(['/Login']);
-    });
+  constructor(private router: Router, private authService: AuthService) {
+    this.addStep = 100 / 4;
+    this.step = 1;
   }
 
-  resetForm(form: NgForm) {
-    form.reset();
+  increaseStep(stepNumber: number) {
+    if (this.step + stepNumber <= this.maxStep) {
+      this.step += stepNumber;
+    }
+  }
+  decreaseStep(stepNumber: number) {
+    if (this.step - stepNumber > 0) {
+      this.step -= stepNumber;
+    }
+  }
+
+  saveSubscriber(data: Subscriber) {
+    this.subscriber.email = data.email;
+    this.subscriber.userName = data.userName;
+    this.subscriber.firstName = data.firstName;
+    this.subscriber.lastName = data.lastName;
+    this.subscriber.password = data.password;
+    this.subscriber.roles = data.roles;
+  }
+
+  savePricingPlan(subscriptionPlan: string) {
+    this.subscriber.subscriptionPlan = subscriptionPlan;
+  }
+
+  saveTokenId(tokenId: string) {
+    this.subscriber.tokenId = tokenId;
+
+    this.authService.registerSubscriber(this.subscriber).subscribe(() => {
+      this.router.navigate(['/Login']);
+    });
   }
 }

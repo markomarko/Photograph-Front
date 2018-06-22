@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { User } from '../model/user';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
+import { Subscriber } from '../model/Subscriber';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,6 +20,14 @@ export class AuthService {
     return this.http.post(
       environment.webApiBaseUrl + '/User',
       JSON.stringify(user),
+      httpOptions
+    );
+  }
+
+  public registerSubscriber(subscriber: Subscriber): Observable<any> {
+    return this.http.post(
+      environment.webApiBaseUrl + '/User',
+      JSON.stringify(subscriber),
       httpOptions
     );
   }

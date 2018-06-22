@@ -1,0 +1,20 @@
+<h4 class="card-title">Chose account type</h4>
+<div class="row justify-content-center">
+  <div class="col-6">
+    <span class="float-left col-5">
+      <button (click)="nextStep(4)" data-toggle="tooltip" data-placement="top" title="Buyers account" style=" cursor: pointer;">
+        <img src="../../../../assets/images/watch.jpg" class="img-thumbnail img-fluid" style="height: 150px; width: 150px"
+          alt="Buy photos" />
+      </button>
+      <div>Search, watch and buy images</div>
+    </span>
+    <span class="float-right col-5">
+      <button (click)="nextStep(1)" data-toggle="tooltip" data-placement="top" title="Publishers account" style=" cursor: pointer;">
+        <img src="../../../../assets/images/publish.jpg" class="img-thumbnail img-fluid" style="height: 150px; width: 150px;"
+          alt="Publish photos" />
+      </button>
+      <div>Publish images</div>
+    </span>
+  </div>
+</div>
+<button class="btn btn-default" [disabled]="true" (click)="previousStep()">Back</button>

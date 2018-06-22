@@ -1,46 +1,21 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <div class="row justify-content-center">
-        <h1>Please register</h1>
-    </div>
-    <div class="row justify-content-center" >
-        <div class="col-6">
-            <form (ngSubmit)="onSignup(form)" #form="ngForm">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" name="username" ngModel required #username="ngModel" />
-                    <span class="text-danger" *ngIf="!username.valid && username.touched">Username is required</span>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" ngModel name="email" email required #email="ngModel" />
-                    <span class="text-danger" *ngIf="!email.valid && email.touched">Valid email is required</span>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" ngModel name="password" required #password="ngModel" />
-                    <span class="text-danger" *ngIf="password.invalid && password.touched">Password is required</span>
-                </div>
-                <div class="form-group">
-                    <label for=" Confirm password">Confirm password</label>
-                    <input type="password" class="form-control" ngModel name="passtest" required #passtest="ngModel" />
-                    <span class="text-danger" *ngIf="passtest.touched && passtest == form.password">Password confirmation is required</span>
-                </div>
-                <div class="form-group">
-                    <label for="firstName">First name</label>
-                    <input type="text" class="form-control" ngModel name="firstName" required #firstName="ngModel" />
-                    <span class="text-danger" *ngIf="!firstName.valid && firstName.touched">First name is required</span>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last name</label>
-                    <input type="text" class="form-control" ngModel name="lastName" required #lastName="ngModel" />
-                    <span class="text-danger" *ngIf="!lastName.valid && lastName.touched">Last name is required</span>
-                </div>
-                <div class="form-group">
-                    <button [routerLink]="['/Login']" type="submit" class="btn btn-primary" [disabled]="!form.valid">Sign up</button>
-                    <button (click)="resetForm(form)" class="btn btn-default">Cancel</button>
-                </div>
-            </form>
+    <br>
+    <h1>Registration</h1>
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-info" [ngStyle]="{'width.%': step*addStep}" role="progressbar" aria-valuenow="25"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+        <div class="card-body">
+            <app-step1 *ngIf="step === 1" (nextStepEvent)="increaseStep($event)"></app-step1>
+            <app-step2 *ngIf="step === 5" (nextStepEvent)="increaseStep($event)" (previousStepEvent)="decreaseStep($event)"></app-step2>
+            <app-step3 *ngIf="step === 2" (nextStepEvent)="increaseStep($event)" (previousStepEvent)="decreaseStep($event)" (pricingPlanEvent)="savePricingPlan($event)"></app-step3>
+            <app-step4 *ngIf="step === 3" (nextStepEvent)="increaseStep($event)" (previousStepEvent)="decreaseStep($event)" (nextEvent)="saveSubscriber($event)"></app-step4>
+            <app-step5 *ngIf="step === 4" (previousStepEvent)="decreaseStep($event)" (tokenIdEvent)="saveTokenId($event)"></app-step5>
         </div>
     </div>
 </div>

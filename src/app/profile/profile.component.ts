@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  public user: User = new User('', '', '', '', '', []);
+  public user: User = new User();
 
   constructor(private data: DataService, private route: ActivatedRoute) {
     const id = this.route.snapshot.params.id;

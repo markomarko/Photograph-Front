@@ -22,6 +22,11 @@ import { NavbarComponent } from './home/navbar/navbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ToDateTimePipe } from './shared/toDateTimePipe';
 import { ProfileComponent } from './profile/profile.component';
+import { Step1Component } from './auth/register/step1/step1.component';
+import { Step2Component } from './auth/register/step2/step2.component';
+import { Step3Component } from './auth/register/step3/step3.component';
+import { Step4Component } from './auth/register/step4/step4.component';
+import { Step5Component } from './auth/register/step5/step5.component';
 
 const HomeChildRoutes = [
   { path: 'Dashboard', component: HomeComponent },
@@ -63,7 +68,7 @@ const routes: Routes = [
   {
     path: 'Pricing',
     component: PricingComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
   },
   {
@@ -85,7 +90,12 @@ const routes: Routes = [
     NavbarComponent,
     WelcomeComponent,
     ToDateTimePipe,
-    ProfileComponent
+    ProfileComponent,
+    Step1Component,
+    Step2Component,
+    Step3Component,
+    Step4Component,
+    Step5Component
   ],
   imports: [
     BrowserModule,
