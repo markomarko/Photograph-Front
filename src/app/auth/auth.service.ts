@@ -18,7 +18,7 @@ export class AuthService {
 
   public register(user: User): Observable<any> {
     return this.http.post(
-      environment.webApiBaseUrl + '/User',
+      environment.webApiBaseUrl + '/User/client',
       JSON.stringify(user),
       httpOptions
     );
@@ -26,7 +26,7 @@ export class AuthService {
 
   public registerSubscriber(subscriber: Subscriber): Observable<any> {
     return this.http.post(
-      environment.webApiBaseUrl + '/User/RegisterSubscriber',
+      environment.webApiBaseUrl + '/User/subscriber',
       JSON.stringify(subscriber),
       httpOptions
     );
