@@ -32,7 +32,6 @@ export class Step5Component implements OnInit {
       (status: number, response: any) => {
         if (status === 200) {
           this.tokenIdEvent.emit(response.card.id);
-          console.log(response.card.id);
         }
       }
     );
