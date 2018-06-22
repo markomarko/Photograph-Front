@@ -27,6 +27,7 @@ export class Step2Component implements OnInit {
       form.value.firstName,
       form.value.lastName,
       form.value.email,
+      form.value.pEmail,
       new Array('User')
     );
     this.authService.register(user).subscribe(() => {
