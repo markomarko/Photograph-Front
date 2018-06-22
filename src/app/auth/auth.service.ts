@@ -8,7 +8,7 @@ import { Subscriber } from '../model/Subscriber';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'true'
+    'Access-Control-Allow-Origin': '*'
   })
 };
 
@@ -26,7 +26,7 @@ export class AuthService {
 
   public registerSubscriber(subscriber: Subscriber): Observable<any> {
     return this.http.post(
-      environment.webApiBaseUrl + '/User',
+      environment.webApiBaseUrl + '/User/RegisterSubscriber',
       JSON.stringify(subscriber),
       httpOptions
     );
