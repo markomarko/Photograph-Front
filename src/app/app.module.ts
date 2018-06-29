@@ -28,6 +28,7 @@ import { Step2Component } from './auth/register/step2/step2.component';
 import { Step3Component } from './auth/register/step3/step3.component';
 import { Step4Component } from './auth/register/step4/step4.component';
 import { Step5Component } from './auth/register/step5/step5.component';
+import { AlbumResolve } from './gallery/album/album.resolve';
 
 
 const HomeChildRoutes = [
@@ -37,13 +38,16 @@ const HomeChildRoutes = [
     path: 'Gallery',
     component: GalleryComponent,
     canActivate: [AuthGuard],
-    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole, RoleConstants.clientRole] }
   },
   {
     path: 'Gallery/Album/:id',
     component: AlbumComponent,
+    resolve: {
+      album: AlbumResolve
+    },
     canActivate: [AuthGuard],
-    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole, RoleConstants.clientRole] }
   },
   {
     path: 'Customer',
@@ -77,7 +81,7 @@ const routes: Routes = [
     component: HomeComponent,
     children: HomeChildRoutes,
     canActivate: [AuthGuard],
-    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole] }
+    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole, RoleConstants.clientRole] }
   },
   {
     path: 'Pricing',
@@ -124,6 +128,7 @@ const routes: Routes = [
   ],
   providers: [
     DataService,
+    AlbumResolve,
     AuthGuard,
     AuthService,
     {

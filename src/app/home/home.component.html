@@ -20,7 +20,7 @@
                     </li>
                 </ul>
             </li>
-            <li>
+            <li *ngIf="data.getPermission()">
                 <a aria-expanded="false" [routerLink]="['/Home/Customer']">
                     <i class="material-icons">people</i>
                     Customers

@@ -24,7 +24,6 @@ export class LoginComponent {
       .append('scope', environment.scope)
       .append('client_secret', environment.clientSecret);
 
-    console.log(httpParams);
     this.data.login(httpParams).subscribe(token => {
       this.token = token;
       localStorage.setItem('access_token', this.token.access_token);

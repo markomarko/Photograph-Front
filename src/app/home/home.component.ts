@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from '../shared/dataServices';
 
 @Component({
   selector: 'home-component',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class HomeComponent {
   public toggle = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private data: DataService) {}
 
   onToggle(isToggle: boolean) {
     this.toggle = isToggle;

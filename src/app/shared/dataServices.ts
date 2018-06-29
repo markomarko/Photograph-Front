@@ -48,13 +48,12 @@ export class DataService {
         return this.http.delete(environment.webApiBaseUrl + '/Album/delete?id=' + JSON.stringify(id), httpOptions);
     }
 
+    // User Methods
     public getUsers(): Observable<any> {
         return this.http.get<User[]>(environment.webApiBaseUrl + '/User', {
             responseType: 'json'
         });
     }
-
-    
 
     public getUser(id: string): Observable<any> {
         return this.http.get<User>(environment.webApiBaseUrl + '/User/' + id, {
@@ -64,13 +63,10 @@ export class DataService {
 
     public getUserId(): number {
         let jwt = localStorage.access_token;
-
         let jwtData = jwt.split('.')[1];
         let decodedJwtJsonData = window.atob(jwtData);
         let decodedJwtData = JSON.parse(decodedJwtJsonData);
-
         let id = decodedJwtData.id;
-        console.log(id);
         return id;
     }
 
@@ -78,9 +74,13 @@ export class DataService {
         if (!token) {
             return null;
         }
-
         const jwtHelperService = new JwtHelperService();
-
         return <JwtToken>jwtHelperService.decodeToken(token);
+    }
+
+    public getPermission(): boolean {
+        let temp_token = this.getDecodedToken(localStorage.access_token);
+        let role = temp_token.role;
+        if ((role === 'Admin') || (role === 'Subscriber')) { return true; } else  { return false; }
     }
 }

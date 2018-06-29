@@ -15,10 +15,9 @@ import { Picture } from '../../model/Picture';
     selectedFile: Picture[] = [];
     constructor(private data: DataService, private router: Router, private arouter: ActivatedRoute) {
     }
-    ngOnInit(){
+    ngOnInit() {
         this.id = this.arouter.snapshot.paramMap.get('id');
-        this.data.getPictures(this.id)
-            .subscribe(data => this.pictures = data);
+        this.pictures = this.arouter.snapshot.data['album'];
     }
 
     handleFileInput(files: FileList) {
@@ -32,7 +31,7 @@ import { Picture } from '../../model/Picture';
     public deletePhoto(idPhoto) {
         this.data.deletePicture(idPhoto)
             .subscribe(() => {
-                this. ngOnInit();
+                this.ngOnInit();
             });
     }
 
