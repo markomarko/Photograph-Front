@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Picture } from '../model/Picture';
@@ -8,10 +8,11 @@ import { User } from '../model/user';
 import { JwtToken } from '../model/JwtToken';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Album } from '../model/Album';
+import { PagingHeader } from '../model/PagingHeader';
 
 const httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     })
 };
 
@@ -26,8 +27,10 @@ export class DataService {
         return this.http.post(environment.webApiBaseUrl + '/Photo/post', JSON.stringify(image), httpOptions);
     }
 
-    public getPictures(id: string): Observable<Picture[]> {
-        return this.http.get<Picture[]>(environment.webApiBaseUrl + '/Photo/get?id=' + id, httpOptions);
+    public getPictures(id: string, pagingHeader: PagingHeader ): Observable<HttpResponse<Picture[]>> {
+        return this.http.get<Picture[]>(environment.webApiBaseUrl + '/Photo/get?id=' + id +
+            '&pageNumber=' + pagingHeader.pageNumber + '&pageSize=' + pagingHeader.pageSize,
+             {headers: httpOptions.headers, observe: 'response'});
     }
 
     public deletePicture(id: number) {

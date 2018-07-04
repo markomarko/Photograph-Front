@@ -27,5 +27,13 @@
             </div>
           </div>
         </div>
+        <br>
     </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <li class="page-item" *ngIf="pagingHeader.previousPage === 1" ><a class="page-link bg-primary" (click)="previousPage()">Previous</a></li>
+          <li class="page-item" *ngIf="pagingHeader.nextPage === 1"><a class="page-link bg-primary" (click)="nextPage()">Next</a></li>
+      </ul>
+    </nav>
 </div>

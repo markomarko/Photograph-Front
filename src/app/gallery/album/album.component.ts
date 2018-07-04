@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from '../../shared/dataServices';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Picture } from '../../model/Picture';
+import { PagingHeader } from '../../model/PagingHeader';
+import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
 
 @Component({
     selector: 'album-component',
@@ -10,22 +12,23 @@ import { Picture } from '../../model/Picture';
   })
 
   export class AlbumComponent implements OnInit {
+
     id: string;
     public pictures: Picture[];
     selectedFile: Picture[] = [];
+    pagingHeader: PagingHeader;
+
     constructor(private data: DataService, private router: Router, private arouter: ActivatedRoute) {
     }
     ngOnInit() {
+        this.pagingHeader = new PagingHeader();
         this.id = this.arouter.snapshot.paramMap.get('id');
-        this.pictures = this.arouter.snapshot.data['album'];
-    }
-
-    handleFileInput(files: FileList) {
-        let model = { counter: 0, size: files.length };
-        Array.from(files).forEach(file => {
-            this.ConvertBase64(file, model);
-        });
-        console.log(this.selectedFile);
+        this.data.getPictures(this.id, this.pagingHeader)
+            .subscribe(data => {
+                this.pictures = data.body;
+                let header  = JSON.parse(data.headers.get('Paging-Headers'));
+                this.updatePagination(header);
+            });
     }
 
     public deletePhoto(idPhoto) {
@@ -33,6 +36,27 @@ import { Picture } from '../../model/Picture';
             .subscribe(() => {
                 this.ngOnInit();
             });
+    }
+
+    // TODO: NEXT and PREVIOUS page
+    public nextPage() {
+        if (this.pagingHeader.nextPage === 1) { this.pagingHeader.pageNumber += 1; } else { return; }
+        this.data.getPictures(this.id, this.pagingHeader)
+            .subscribe(data => {
+                this.pictures = data.body;
+                let header  = JSON.parse(data.headers.get('Paging-Headers'));
+                this.updatePagination(header);
+        });
+    }
+
+    public previousPage() {
+        if (this.pagingHeader.previousPage === 1) { this.pagingHeader.pageNumber -= 1; } else { return; }
+        this.data.getPictures(this.id, this.pagingHeader)
+            .subscribe(data => {
+                this.pictures = data.body;
+                let header  = JSON.parse(data.headers.get('Paging-Headers'));
+                this.updatePagination(header);
+        });
     }
 
     private ConvertBase64(image: File, model: {counter, size}): void {
@@ -50,6 +74,21 @@ import { Picture } from '../../model/Picture';
             this.ngOnInit();
           }
         };
+    }
+
+    handleFileInput(files: FileList) {
+        let model = { counter: 0, size: files.length };
+        Array.from(files).forEach(file => {
+            this.ConvertBase64(file, model);
+        });
+        console.log(this.selectedFile);
+    }
+
+    updatePagination(header: any){
+        this.pagingHeader.nextPage = header.nextPage;
+        this.pagingHeader.previousPage = header.previousPage;
+        this.pagingHeader.pageNumber = header.currentPage;
+        this.pagingHeader.pageSize = header.pageSize;
     }
 
   }
