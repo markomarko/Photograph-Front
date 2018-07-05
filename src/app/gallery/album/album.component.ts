@@ -63,7 +63,7 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
           if (model.counter === model.size) {
             this.data.postPicture(this.selectedFile).subscribe();
             this.selectedFile = [];
-            this.ngOnInit();
+            this.applyChanges();
           }
         };
     }
@@ -77,12 +77,9 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
         });
     }
 
-    handleFileInput(files: FileList) {
-        let model = { counter: 0, size: files.length };
-        Array.from(files).forEach(file => {
-            this.ConvertBase64(file, model);
-        });
-        console.log(this.selectedFile);
+    private setPageSize(size: number) {
+        this.pagingHeader.pageSize = size;
+        this.applyChanges();
     }
 
     updatePagination(header: any){
@@ -92,4 +89,11 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
         this.pagingHeader.pageSize = header.pageSize;
     }
 
+    handleFileInput(files: FileList) {
+        let model = { counter: 0, size: files.length };
+        Array.from(files).forEach(file => {
+            this.ConvertBase64(file, model);
+        });
+        console.log(this.selectedFile);
+    }
   }
