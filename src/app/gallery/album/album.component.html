@@ -20,7 +20,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" *ngIf="data.getPermission()" (click)="deletePhoto(picture.id)" class="btn btn-sm btn-outline-secondary">Delete</button>
-                    <input type="checkbox" >Select
+                    <label *ngif="!data.getPermission()"><input type="checkbox" [checked]="picture.selected" (change)="updatePhoto(picture)" >Select </label>
                   </div>
                 </div>
               </div>

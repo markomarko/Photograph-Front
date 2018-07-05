@@ -23,40 +23,32 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
     ngOnInit() {
         this.pagingHeader = new PagingHeader();
         this.id = this.arouter.snapshot.paramMap.get('id');
-        this.data.getPictures(this.id, this.pagingHeader)
-            .subscribe(data => {
-                this.pictures = data.body;
-                let header  = JSON.parse(data.headers.get('Paging-Headers'));
-                this.updatePagination(header);
-            });
+        this.applyChanges();
     }
 
     public deletePhoto(idPhoto) {
         this.data.deletePicture(idPhoto)
             .subscribe(() => {
-                this.ngOnInit();
+                this.applyChanges();
             });
     }
 
-    // TODO: NEXT and PREVIOUS page
     public nextPage() {
         if (this.pagingHeader.nextPage === 1) { this.pagingHeader.pageNumber += 1; } else { return; }
-        this.data.getPictures(this.id, this.pagingHeader)
-            .subscribe(data => {
-                this.pictures = data.body;
-                let header  = JSON.parse(data.headers.get('Paging-Headers'));
-                this.updatePagination(header);
-        });
+        this.applyChanges();
     }
 
     public previousPage() {
         if (this.pagingHeader.previousPage === 1) { this.pagingHeader.pageNumber -= 1; } else { return; }
-        this.data.getPictures(this.id, this.pagingHeader)
-            .subscribe(data => {
-                this.pictures = data.body;
-                let header  = JSON.parse(data.headers.get('Paging-Headers'));
-                this.updatePagination(header);
-        });
+        this.applyChanges();
+    }
+
+    updatePhoto(picture: Picture) {
+        if (picture.selected) { picture.selected = false;  } else { picture.selected = true; }
+        this.data.putPicture(picture)
+            .subscribe(() => {
+                this.applyChanges();
+            });
     }
 
     private ConvertBase64(image: File, model: {counter, size}): void {
@@ -74,6 +66,15 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
             this.ngOnInit();
           }
         };
+    }
+
+    private applyChanges() {
+        this.data.getPictures(this.id, this.pagingHeader)
+            .subscribe(data => {
+                this.pictures = data.body;
+                let header  = JSON.parse(data.headers.get('Paging-Headers'));
+                this.updatePagination(header);
+        });
     }
 
     handleFileInput(files: FileList) {

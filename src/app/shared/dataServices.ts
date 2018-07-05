@@ -37,6 +37,10 @@ export class DataService {
         return this.http.delete(environment.webApiBaseUrl + '/Photo/delete?id=' + JSON.stringify(id), httpOptions);
     }
 
+    public putPicture(picture: Picture){
+        return this.http.put(environment.webApiBaseUrl + '/Photo/put', JSON.stringify(picture), httpOptions);
+    }
+
     // Album Methods
     public getAlbum(): Observable<Album[]> {
         let id = this.getUserId();
