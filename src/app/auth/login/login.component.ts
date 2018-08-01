@@ -16,6 +16,7 @@ export class LoginComponent {
 
   private token: any;
   onLogin(form: NgForm) {
+
     const httpParams = new HttpParams()
       .append('username', form.value.username)
       .append('password', form.value.password)

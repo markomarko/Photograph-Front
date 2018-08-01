@@ -29,4 +29,10 @@ export class CustomerComponent implements OnInit {
       this.users = apiUsers;
     });
   }
+
+  banSubscriber(user: User) {
+    this.data.deleteUser(user.id).subscribe(() => {
+      this.getUsers();
+    });
+  }
 }

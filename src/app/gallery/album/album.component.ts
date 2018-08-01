@@ -3,7 +3,7 @@ import { DataService } from '../../shared/dataServices';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Picture } from '../../model/Picture';
 import { PagingHeader } from '../../model/PagingHeader';
-import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'album-component',
@@ -17,8 +17,9 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
     public pictures: Picture[];
     selectedFile: Picture[] = [];
     pagingHeader: PagingHeader;
+    downloadJsonHref: any;
 
-    constructor(private data: DataService, private router: Router, private arouter: ActivatedRoute) {
+    constructor(private data: DataService, private router: Router, private arouter: ActivatedRoute, private sanitizer: DomSanitizer) {
     }
     ngOnInit() {
         this.pagingHeader = new PagingHeader();
@@ -44,12 +45,27 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
     }
 
     updatePhoto(picture: Picture) {
-        if (picture.selected) { picture.selected = false;  } else { picture.selected = true; }
+        picture.selected = !picture.selected;
         this.data.putPicture(picture)
-            .subscribe(() => {
-                this.applyChanges();
-            });
+            .subscribe();
     }
+
+    isPictureSelected(picture: Picture){
+        if (picture.selected === true) { return true; } else { return false; }
+    }
+
+    getSelectedPhoto() {
+        let tempPictures: string[] = [];
+        this.pictures.forEach(item => {
+            if (item.selected) { tempPictures.push(item.name); }
+        });
+
+        let theJSON = JSON.stringify(tempPictures);
+        let uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+        this.downloadJsonHref = uri;
+
+    }
+
 
     private ConvertBase64(image: File, model: {counter, size}): void {
         const reader = new FileReader();
@@ -61,14 +77,17 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
           model.counter++;
           console.log(model.counter);
           if (model.counter === model.size) {
-            this.data.postPicture(this.selectedFile).subscribe();
-            this.selectedFile = [];
-            this.applyChanges();
-          }
+            this.data.postPicture(this.selectedFile).subscribe(
+                () => {
+                    this.selectedFile = [];
+                    this.applyChanges();
+                });
+            }
         };
     }
 
     private applyChanges() {
+        this.pictures = [];
         this.data.getPictures(this.id, this.pagingHeader)
             .subscribe(data => {
                 this.pictures = data.body;
@@ -82,13 +101,14 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
         this.applyChanges();
     }
 
-    updatePagination(header: any){
+    updatePagination(header: any) {
         this.pagingHeader.nextPage = header.nextPage;
         this.pagingHeader.previousPage = header.previousPage;
         this.pagingHeader.pageNumber = header.currentPage;
         this.pagingHeader.pageSize = header.pageSize;
     }
 
+    
     handleFileInput(files: FileList) {
         let model = { counter: 0, size: files.length };
         Array.from(files).forEach(file => {

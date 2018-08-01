@@ -22,7 +22,7 @@
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
             <td *ngIf="isAdmin" >{{user.validUntil | toDateTime | date: 'medium'}}</td>
-            <td *ngIf="isAdmin" ><a (click)="banSubscriber()" class="btn btn-danger">Suspend</a></td>
+            <td *ngIf="isAdmin" ><a (click)="banSubscriber(user)" class="btn btn-danger">Suspend</a></td>
         </tr>
     </tbody>
 </table>

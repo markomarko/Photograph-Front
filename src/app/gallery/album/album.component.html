@@ -10,13 +10,17 @@
                    (change)="handleFileInput($event.target.files)">
         </div>
     </div>
+    
     <div style="float: right;">
       <button type="button" class="btn btn-secondary" (click)=setPageSize(5)>5</button> 
       <button type="button" class="btn btn-secondary" (click)=setPageSize(10)>10</button>
       <button type="button" class="btn btn-secondary" (click)=setPageSize(20)>20</button>
     </div>
+    <div *ngIf="data.getPermission()" style="float:right; margin-right: 20px;">
+      <a class="btn btn-primary" title="Download JSON" [href]="downloadJsonHref" (click)="getSelectedPhoto()" download="download.json"> Get Selected Photos</a>
+    </div>
     <br><br>
-    <div class="row" style="width:1300px;">
+    <div class="row" style="width:100%;">
         <div *ngFor="let picture of pictures">
           <div class="col-md-7"> <!-- col-md-4 default-->
             <div class="card mb-4 box-shadow">
@@ -25,7 +29,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" *ngIf="data.getPermission()" (click)="deletePhoto(picture.id)" class="btn btn-sm btn-outline-secondary">Delete</button>
-                    <label *ngIf="!data.getPermission()" ><input type="checkbox"  [checked]="picture.selected" (change)="updatePhoto(picture)" >Select </label>
+                    <label *ngIf="!data.getPermission()" ><button type="button" (click)="updatePhoto(picture)"> <span class="text">{{picture.selected ? 'Selected!' : 'Select'}} </span></button></label>
                   </div>
                 </div>
               </div>
@@ -37,8 +41,8 @@
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item">
-          <li class="page-item" *ngIf="pagingHeader.previousPage === 1" ><a class="page-link bg-primary" (click)="previousPage()">Previous</a></li>
-          <li class="page-item" *ngIf="pagingHeader.nextPage === 1"><a class="page-link bg-primary" (click)="nextPage()">Next</a></li>
+          <li class="page-item" *ngIf="pagingHeader.previousPage === 1" ><a class="page-link" (click)="previousPage()"><span style="font-size: 25px;"> &laquo; </span></a></li>
+          <li class="page-item" *ngIf="pagingHeader.nextPage === 1"><a class="page-link" (click)="nextPage()"><span style="font-size: 25px;">&raquo;</span></a></li>
       </ul>
     </nav>
 </div>

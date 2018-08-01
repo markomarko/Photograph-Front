@@ -24,35 +24,35 @@ export class DataService {
 
     // Picture Methods
     public postPicture(image: Picture[]) {
-        return this.http.post(environment.webApiBaseUrl + '/Photo/post', JSON.stringify(image), httpOptions);
+        return this.http.post(environment.webApiBaseUrl + '/Photo/', JSON.stringify(image), httpOptions);
     }
 
     public getPictures(id: string, pagingHeader: PagingHeader ): Observable<HttpResponse<Picture[]>> {
-        return this.http.get<Picture[]>(environment.webApiBaseUrl + '/Photo/get?id=' + id +
+        return this.http.get<Picture[]>(environment.webApiBaseUrl + '/Photo/?id=' + id +
             '&pageNumber=' + pagingHeader.pageNumber + '&pageSize=' + pagingHeader.pageSize,
              {headers: httpOptions.headers, observe: 'response'});
     }
 
     public deletePicture(id: number) {
-        return this.http.delete(environment.webApiBaseUrl + '/Photo/delete?id=' + JSON.stringify(id), httpOptions);
+        return this.http.delete(environment.webApiBaseUrl + '/Photo/?id=' + JSON.stringify(id), httpOptions);
     }
 
     public putPicture(picture: Picture){
-        return this.http.put(environment.webApiBaseUrl + '/Photo/put', JSON.stringify(picture), httpOptions);
+        return this.http.put(environment.webApiBaseUrl + '/Photo/', JSON.stringify(picture), httpOptions);
     }
 
     // Album Methods
     public getAlbum(): Observable<Album[]> {
         let id = this.getUserId();
-        return this.http.get<Album[]>(environment.webApiBaseUrl + '/Album/get?id=' + id, httpOptions);
+        return this.http.get<Album[]>(environment.webApiBaseUrl + '/Album/?id=' + id, httpOptions);
     }
 
     public postAlbum(album: Album) {
-        return this.http.post(environment.webApiBaseUrl + '/Album/post', JSON.stringify(album), httpOptions);
+        return this.http.post(environment.webApiBaseUrl + '/Album/', JSON.stringify(album), httpOptions);
     }
 
     public deleteAlbum(id: number) {
-        return this.http.delete(environment.webApiBaseUrl + '/Album/delete?id=' + JSON.stringify(id), httpOptions);
+        return this.http.delete(environment.webApiBaseUrl + '/Album/?id=' + JSON.stringify(id), httpOptions);
     }
 
     // User Methods
@@ -66,6 +66,10 @@ export class DataService {
         return this.http.get<User>(environment.webApiBaseUrl + '/User/' + id, {
             responseType: 'json'
         });
+    }
+
+    public deleteUser(id: string) {
+        return this.http.delete(environment.webApiBaseUrl + '/User/?id=' + id, httpOptions);
     }
 
     public getUserId(): number {

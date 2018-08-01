@@ -49,7 +49,7 @@ export class RegisterComponent {
     this.subscriber.tokenId = tokenId;
 
     this.authService.registerSubscriber(this.subscriber).subscribe(() => {
-      this.router.navigate(['/Login']);
+      this.router.navigate(['Login']);
     });
   }
 }
