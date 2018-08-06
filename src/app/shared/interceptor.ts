@@ -3,15 +3,17 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpResponse
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LoaderService } from '../loader/loader.service';
+import { tap } from '../../../node_modules/rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private loader: LoaderService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     const jwt = localStorage.access_token;
 
     if (jwt) {
@@ -22,7 +24,19 @@ export class TokenInterceptor implements HttpInterceptor {
         }
       });
     }
+    this.loader.show();
 
-    return next.handle(request);
+    return next.handle(request).pipe(
+      tap(
+        event => {
+          if (event instanceof HttpResponse) {
+            this.loader.hide();
+          }
+        },
+        (err: any) => {
+          this.loader.hide();
+        }
+      )
+    );
   }
 }

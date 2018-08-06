@@ -28,6 +28,8 @@ import { Step2Component } from './auth/register/step2/step2.component';
 import { Step3Component } from './auth/register/step3/step3.component';
 import { Step4Component } from './auth/register/step4/step4.component';
 import { Step5Component } from './auth/register/step5/step5.component';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderService } from './loader/loader.service';
 
 
 const HomeChildRoutes = [
@@ -110,7 +112,8 @@ const routes: Routes = [
     Step2Component,
     Step3Component,
     Step4Component,
-    Step5Component
+    Step5Component,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -126,6 +129,7 @@ const routes: Routes = [
     DataService,
     AuthGuard,
     AuthService,
+    LoaderService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
