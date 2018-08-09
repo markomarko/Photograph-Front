@@ -1,68 +1,68 @@
 <h4 class="card-title">Chose pricing plan</h4>
 <div class="container">
   <div class="card-deck mb-3 text-center">
-    <!-- <div class="card mb-4 box-shadow" style="opacity: 0.6;min-height: 100px; min-width: 100px; max-height: 150px; max-width: 150px;">
+    <div class="card mb-3 box-shadow card-suppress-0">
       <div class="card-header">
         <h4 class="my-0 font-weight-normal">Free</h4>
       </div>
       <div class="card-body">
-        <h1 class="card-title pricing-card-title">€0
+        <h2 class="card-title pricing-card-title">€0
           <small class="text-muted">/ 20 days</small>
-        </h1>
+        </h2>
         <ul class="list-unstyled mt-3 mb-4">
           <li>Trial period</li>
           <li>Unlimited access</li>
           <li>24/7 support</li>
         </ul>
-        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+        <button type="button" class="btn btn-lg btn-block btn-outline-primary" (click)="nextStep(1, 'TRIAL')">Get Trial</button>
       </div>
-    </div> -->
-    <div class="card mb-4 box-shadow">
+    </div>
+    <div class="card mb-3 box-shadow card-suppress-1">
       <div class="card-header" style="background-color: #cd9932">
         <h4 class="my-0 font-weight-normal">Bronze</h4>
       </div>
       <div class="card-body">
-        <h1 class="card-title pricing-card-title">€20
+        <h2 class="card-title pricing-card-title">€20
           <small class="text-muted">/ mo</small>
-        </h1>
+        </h2>
         <ul class="list-unstyled mt-3 mb-4">
           <li>&nbsp;</li>
           <li>Unlimited access</li>
           <li>24/7 support</li>
         </ul>
-        <button type="button" class="btn btn-lg btn-block btn-primary" (click)="nextStep(1, 'MONTH')">Get started</button>
+        <button type="button" class="btn btn-lg btn-block btn-primary" (click)="nextStep(1, 'MONTH')">Get Bronze</button>
       </div>
     </div>
-    <div class="card mb-4 box-shadow">
+    <div class="card mb-3 box-shadow card-suppress-2">
       <div class="card-header" style="background-color: #c3c3c3">
         <h4 class="my-0 font-weight-normal">Silver</h4>
       </div>
       <div class="card-body">
-        <h1 class="card-title pricing-card-title">€90
+        <h2 class="card-title pricing-card-title">€90
           <small class="text-muted">/ 6 mo</small>
-        </h1>
+        </h2>
         <ul class="list-unstyled mt-3 mb-4">
           <li>Save up to 25%</li>
           <li>Unlimited access</li>
           <li>24/7 support</li>
         </ul>
-        <button type="button" class="btn btn-lg btn-block btn-primary" (click)="nextStep(1, 'HALF_YEAR')">Get started</button>
+        <button type="button" class="btn btn-lg btn-block btn-primary" (click)="nextStep(1, 'HALF_YEAR')">Get Silver</button>
       </div>
     </div>
-    <div class="card mb-4 box-shadow">
+    <div class="card mb-3 box-shadow card-highlight">
       <div class="card-header" style="background-color: #ffec00">
         <h4 class="my-0 font-weight-normal">Gold</h4>
       </div>
       <div class="card-body">
-        <h1 class="card-title pricing-card-title">€120
+        <h2 class="card-title pricing-card-title">€120
           <small class="text-muted">/ 1 year</small>
-        </h1>
+        </h2>
         <ul class="list-unstyled mt-3 mb-4">
           <li>Save up to 50%</li>
           <li>Unlimited access</li>
           <li>24/7 support</li>
         </ul>
-        <button type="button" class="btn btn-lg btn-block btn-primary" (click)="nextStep(1,'YEAR')">Get started</button>
+        <button type="button" class="btn btn-lg btn-block btn-primary" (click)="nextStep(1,'YEAR')">Get Gold</button>
       </div>
     </div>
   </div>

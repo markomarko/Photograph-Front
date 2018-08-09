@@ -11,5 +11,5 @@ export const environment = {
   clientId: 'PhotographId',
   scope: 'Photograph',
   clientSecret: 'photographSecret',
-  StripePK: 'pk_test_sqRl24yxxc8AN2GvTQpOWx0h'
+  StripePK: 'pk_test_BmMKmyBcNn9dz8ZeSTmhsvVk'
 };
