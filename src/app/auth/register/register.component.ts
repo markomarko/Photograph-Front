@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { User } from '../../model/user';
 import { AuthService } from '../auth.service';
 import { Subscriber } from '../../model/Subscriber';
 
@@ -49,7 +47,7 @@ export class RegisterComponent {
     this.subscriber.tokenId = tokenId;
 
     this.authService.registerSubscriber(this.subscriber).subscribe(() => {
-      this.router.navigate(['Login']);
+      this.router.navigate(['/Login']);
     });
   }
 }

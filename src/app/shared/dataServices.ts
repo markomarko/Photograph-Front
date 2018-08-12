@@ -27,7 +27,7 @@ export class DataService {
         return this.http.post(environment.webApiBaseUrl + '/Photo/', JSON.stringify(image), httpOptions);
     }
 
-    public getPictures(id: string, pagingHeader: PagingHeader ): Observable<HttpResponse<Picture[]>> {
+    public getPictures(id: string, pagingHeader: PagingHeader): Observable<HttpResponse<Picture[]>> {
         return this.http.get<Picture[]>(environment.webApiBaseUrl + '/Photo/?id=' + id +
             '&pageNumber=' + pagingHeader.pageNumber + '&pageSize=' + pagingHeader.pageSize,
              {headers: httpOptions.headers, observe: 'response'});
@@ -58,6 +58,15 @@ export class DataService {
     // User Methods
     public getUsers(): Observable<any> {
         return this.http.get<User[]>(environment.webApiBaseUrl + '/User', {
+            responseType: 'json'
+        });
+    }
+
+    public getRangeUsers(pagingHeader: PagingHeader): Observable<HttpResponse<User[]>> {
+        return this.http.get<User[]>(environment.webApiBaseUrl + '/User?pageNumber=' +
+        pagingHeader.pageNumber + '&pageSize=' + pagingHeader.pageSize, {
+            headers: httpOptions.headers,
+            observe: 'response',
             responseType: 'json'
         });
     }
