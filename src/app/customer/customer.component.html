@@ -1,29 +1,52 @@
-
-<div class="container" >
+<div class="container">
     <h3 class="card-title">Customers</h3>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Email</th>
-            <th scope="col">First name</th>
-            <th scope="col">Last name</th>
-            <th *ngIf="isAdmin" scope="col">Subscribed until</th>
-            <th *ngIf="isAdmin" scope="col">Role</th>
-            <th *ngIf="isAdmin" scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let user of users; let i = index">
-            <th scope="row">{{i+1}}</th>
-            <td>{{user.userName}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td *ngIf="isAdmin" >{{user.validUntil | toDateTime | date: 'medium'}}</td>
-            <td *ngIf="isAdmin" ><a (click)="banSubscriber(user)" class="btn btn-danger">Suspend</a></td>
-        </tr>
-    </tbody>
-</table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <li class="page-item" [ngClass]="{'disabled': pagingHeader.previousPage === 0}">
+                <a class="page-link" tabindex="-1" (click)="setPage(1)">&laquo; First</a>
+            </li>
+            <li class="page-item" [ngClass]="{'disabled': pagingHeader.previousPage === 0}">
+                <a class="page-link" tabindex="-1" (click)="previousPage()">&lsaquo; Previous</a>
+            </li>
+            <li class="page-item" [ngClass]="{'active': pagingHeader.pageNumber === page}" *ngFor="let page of pages">
+                <a class="page-link" tabindex="{{page}}" (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li class="page-item" [ngClass]="{'disabled': pagingHeader.nextPage === 0}">
+                <a class="page-link" tabindex="1" (click)="nextPage()">Next &rsaquo;</a>
+            </li>
+            <li class="page-item" [ngClass]="{'disabled': pagingHeader.nextPage === 0}">
+                <a class="page-link" tabindex="1" (click)="setPage(pagingHeader.lastPage)">Last &raquo;</a>
+            </li>
+        </ul>
+    </nav>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th *ngIf="isAdmin" scope="col">Subscribed until</th>
+                <th *ngIf="isAdmin" scope="col">Role</th>
+                <th *ngIf="isAdmin" scope="col"></th>
+                <th *ngIf="isAdmin" scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{user.userName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td *ngIf="isAdmin">{{user.validUntil | toDateTime | date: 'medium'}}</td>
+                <td *ngIf="isAdmin">{{user.roles[0]}}</td>
+                <td *ngIf="isAdmin">
+                    <a (click)="suspendUser(user.id)" class="btn btn-outline-danger btn-sm" [ngClass]="{'disabled': user.isSuspended}">Suspend</a>
+                </td>
+                <td *ngIf="isAdmin">
+                    <a (click)="resumeUser(user.id)" class="btn btn-outline-success btn-sm" [ngClass]="{'disabled': !user.isSuspended}">Resume</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

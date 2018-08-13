@@ -27,7 +27,7 @@ export class DataService {
         return this.http.post(environment.webApiBaseUrl + '/Photo/', JSON.stringify(image), httpOptions);
     }
 
-    public getPictures(id: string, pagingHeader: PagingHeader ): Observable<HttpResponse<Picture[]>> {
+    public getPictures(id: string, pagingHeader: PagingHeader): Observable<HttpResponse<Picture[]>> {
         return this.http.get<Picture[]>(environment.webApiBaseUrl + '/Photo/?id=' + id +
             '&pageNumber=' + pagingHeader.pageNumber + '&pageSize=' + pagingHeader.pageSize,
              {headers: httpOptions.headers, observe: 'response'});
@@ -62,6 +62,15 @@ export class DataService {
         });
     }
 
+    public getRangeUsers(pagingHeader: PagingHeader): Observable<HttpResponse<User[]>> {
+        return this.http.get<User[]>(environment.webApiBaseUrl + '/User?pageNumber=' +
+        pagingHeader.pageNumber + '&pageSize=' + pagingHeader.pageSize, {
+            headers: httpOptions.headers,
+            observe: 'response',
+            responseType: 'json'
+        });
+    }
+
     public getUser(id: string): Observable<any> {
         return this.http.get<User>(environment.webApiBaseUrl + '/User/' + id, {
             responseType: 'json'
@@ -71,6 +80,15 @@ export class DataService {
     public deleteUser(id: string) {
         return this.http.delete(environment.webApiBaseUrl + '/User/?id=' + id, httpOptions);
     }
+
+    public suspendUser(id: string) {
+        return this.http.get(environment.webApiBaseUrl + '/User/' + id + '/suspend', httpOptions);
+    }
+
+    public resumeUser(id: string) {
+        return this.http.get(environment.webApiBaseUrl + '/User/' + id + '/resume', httpOptions);
+    }
+
 
     public getUserId(): number {
         let jwt = localStorage.access_token;
