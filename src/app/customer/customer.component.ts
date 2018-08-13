@@ -74,8 +74,14 @@ export class CustomerComponent implements OnInit {
     return Array.from({ length: end - start }, (v, k) => k + start);
   }
 
-  banSubscriber(user: User) {
-    this.data.deleteUser(user.id).subscribe(() => {
+  suspendUser(userId: string) {
+    this.data.suspendUser(userId).subscribe(() => {
+      this.getUsers();
+    });
+  }
+
+  resumeUser(userId: string) {
+    this.data.resumeUser(userId).subscribe(() => {
       this.getUsers();
     });
   }

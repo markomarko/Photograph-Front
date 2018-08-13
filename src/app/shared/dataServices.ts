@@ -81,6 +81,15 @@ export class DataService {
         return this.http.delete(environment.webApiBaseUrl + '/User/?id=' + id, httpOptions);
     }
 
+    public suspendUser(id: string) {
+        return this.http.get(environment.webApiBaseUrl + '/User/' + id + '/suspend', httpOptions);
+    }
+
+    public resumeUser(id: string) {
+        return this.http.get(environment.webApiBaseUrl + '/User/' + id + '/resume', httpOptions);
+    }
+
+
     public getUserId(): number {
         let jwt = localStorage.access_token;
         let jwtData = jwt.split('.')[1];

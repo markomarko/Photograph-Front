@@ -29,6 +29,7 @@
                 <th *ngIf="isAdmin" scope="col">Subscribed until</th>
                 <th *ngIf="isAdmin" scope="col">Role</th>
                 <th *ngIf="isAdmin" scope="col"></th>
+                <th *ngIf="isAdmin" scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -40,7 +41,10 @@
                 <td *ngIf="isAdmin">{{user.validUntil | toDateTime | date: 'medium'}}</td>
                 <td *ngIf="isAdmin">{{user.roles[0]}}</td>
                 <td *ngIf="isAdmin">
-                    <a (click)="banSubscriber(user)" class="btn btn-danger">Suspend</a>
+                    <a (click)="suspendUser(user.id)" class="btn btn-outline-danger btn-sm" [ngClass]="{'disabled': user.isSuspended}">Suspend</a>
+                </td>
+                <td *ngIf="isAdmin">
+                    <a (click)="resumeUser(user.id)" class="btn btn-outline-success btn-sm" [ngClass]="{'disabled': !user.isSuspended}">Resume</a>
                 </td>
             </tr>
         </tbody>
