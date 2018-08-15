@@ -30,6 +30,8 @@ import { Step4Component } from './auth/register/step4/step4.component';
 import { Step5Component } from './auth/register/step5/step5.component';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader/loader.service';
+import { ModalComponent } from './suspendedUserModal/modal.component';
+import { SuspendedUserModalService } from './suspendedUserModal/suspendedUserModal.service';
 
 
 const HomeChildRoutes = [
@@ -113,7 +115,8 @@ const routes: Routes = [
     Step3Component,
     Step4Component,
     Step5Component,
-    LoaderComponent
+    LoaderComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -130,6 +133,7 @@ const routes: Routes = [
     AuthGuard,
     AuthService,
     LoaderService,
+    SuspendedUserModalService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

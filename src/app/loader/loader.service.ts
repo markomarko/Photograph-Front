@@ -1,6 +1,6 @@
-import { Injectable } from '../../../node_modules/@angular/core';
+import { Injectable } from '@angular/core';
 import { LoaderState } from './loaderState';
-import { Subject } from '../../../node_modules/rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class LoaderService {
