@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/interceptor';
@@ -33,7 +35,6 @@ import { LoaderService } from './loader/loader.service';
 import { ModalComponent } from './suspendedUserModal/modal.component';
 import { SuspendedUserModalService } from './suspendedUserModal/suspendedUserModal.service';
 
-
 const HomeChildRoutes = [
   { path: 'Dashboard', component: HomeComponent },
   { path: 'Customer', component: CustomerComponent },
@@ -41,13 +42,25 @@ const HomeChildRoutes = [
     path: 'Gallery',
     component: GalleryComponent,
     canActivate: [AuthGuard],
-    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole, RoleConstants.clientRole] }
+    data: {
+      roles: [
+        RoleConstants.adminRole,
+        RoleConstants.subscriberRole,
+        RoleConstants.clientRole
+      ]
+    }
   },
   {
     path: 'Gallery/Album/:id',
     component: AlbumComponent,
     canActivate: [AuthGuard],
-    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole, RoleConstants.clientRole] }
+    data: {
+      roles: [
+        RoleConstants.adminRole,
+        RoleConstants.subscriberRole,
+        RoleConstants.clientRole
+      ]
+    }
   },
   {
     path: 'Customer',
@@ -81,7 +94,13 @@ const routes: Routes = [
     component: HomeComponent,
     children: HomeChildRoutes,
     canActivate: [AuthGuard],
-    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole, RoleConstants.clientRole] }
+    data: {
+      roles: [
+        RoleConstants.adminRole,
+        RoleConstants.subscriberRole,
+        RoleConstants.clientRole
+      ]
+    }
   },
   {
     path: 'Pricing',
@@ -126,7 +145,9 @@ const routes: Routes = [
       enableTracing: false
     }),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     DataService,
@@ -142,4 +163,4 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
