@@ -21,9 +21,9 @@
                       </div>
                       <div class="form-group ">
                         <label for="clients">Pick client:</label><br>
-                        <select class='select-option' required ngModel name="select" #select="ngModel" (ngModelChange)='onOptionsSelected($event)'>
-                          <option class='option' *ngFor='let client of clients' [value]="client.id">{{client.userName}}</option>
-                      </select>
+                        <select (change)="onOptionsSelected($event.target.value)">
+                          <option *ngFor="let client of clients" >{{client.id}}</option>
+                        </select>
                       </div>
                       <br><br>
                       <div class="form-group ">

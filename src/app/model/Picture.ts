@@ -3,12 +3,12 @@ export class Picture {
 
     id: number;
     albumId: number;
-    userId: number;
+    userId: string;
     name: string;
     context: string;
     selected: boolean;
 
-    constructor(image: string, name: string, extid: number, albid: string) {
+    constructor(image: string, name: string, extid: string, albid: string) {
         this.userId = extid;
         this.name = name;
         this.context = image;

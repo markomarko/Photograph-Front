@@ -30,6 +30,7 @@ import { Step4Component } from './auth/register/step4/step4.component';
 import { Step5Component } from './auth/register/step5/step5.component';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader/loader.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const HomeChildRoutes = [
@@ -123,7 +124,8 @@ const routes: Routes = [
       enableTracing: false
     }),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     DataService,

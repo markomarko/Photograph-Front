@@ -1,21 +1,21 @@
 export class Album {
-    id: number;
-    userId: number;
-    clientId: number;
+    id: string;
+    ownerId: string;
     name: string;
     description: string;
     dateTime: Date;
+    usersWithAccess: Array<string> = [];
 
     constructor(
-      userId: number,
-      clientId: number,
+      ownerId: string,
       name: string,
       description: string,
+      userlist: string
     ) {
-      this.userId = userId;
+      this.ownerId = ownerId;
       this.name = name;
       this.description = description;
       this.dateTime = new Date();
-      this.clientId = clientId;
+      this.usersWithAccess.push(userlist);
     }
   }

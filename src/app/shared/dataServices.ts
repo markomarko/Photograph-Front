@@ -44,7 +44,7 @@ export class DataService {
     // Album Methods
     public getAlbum(): Observable<Album[]> {
         let id = this.getUserId();
-        return this.http.get<Album[]>(environment.webApiBaseUrl + '/Album/?id=' + id, httpOptions);
+        return this.http.get<Album[]>(environment.webApiBaseUrl + '/Album/' + id, httpOptions);
     }
 
     public postAlbum(album: Album) {
@@ -90,7 +90,7 @@ export class DataService {
     }
 
 
-    public getUserId(): number {
+    public getUserId(): string {
         let jwt = localStorage.access_token;
         let jwtData = jwt.split('.')[1];
         let decodedJwtJsonData = window.atob(jwtData);

@@ -4,6 +4,8 @@ import { DataService } from '../shared/dataServices';
 import { Album } from '../model/Album';
 import { NgForm } from '@angular/forms';
 import { User } from '../model/user';
+import {FormControl} from '@angular/forms';
+
 
 @Component({
   selector: 'gallery-component',
@@ -19,7 +21,7 @@ export class GalleryComponent implements OnInit {
   public clientid: any;
 
   constructor(private router: Router, private data: DataService) {
-
+    
   }
 
   ngOnInit() {
@@ -32,7 +34,7 @@ export class GalleryComponent implements OnInit {
 
   newAlbum(form: NgForm) {
     let id = this.data.getUserId();
-    let album = new Album(id, this.clientid, form.value.name, form.value.description);
+    let album = new Album(id, form.value.name, form.value.description, this.clientid);
     this.data.postAlbum(album)
       .subscribe(() => {
         this.ngOnInit();
@@ -58,7 +60,4 @@ export class GalleryComponent implements OnInit {
   public resetForm(form: NgForm) {
     form.reset();
   }
-
- 
-
 }
