@@ -20,16 +20,17 @@ export class GalleryComponent implements OnInit {
   public clients: User[];
   public clientid: any;
 
+
   constructor(private router: Router, private data: DataService) {
-    
   }
 
   ngOnInit() {
     this.data.getAlbum()
       .subscribe(data => this.albums = data);
 
-    this.data.getUsers().
-      subscribe(data => this.clients = data);
+      this.data.getUsers().subscribe(data => {
+        this.clients = data;
+      });
   }
 
   newAlbum(form: NgForm) {
@@ -60,4 +61,6 @@ export class GalleryComponent implements OnInit {
   public resetForm(form: NgForm) {
     form.reset();
   }
+
+  
 }

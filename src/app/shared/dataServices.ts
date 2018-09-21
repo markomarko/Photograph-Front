@@ -33,8 +33,8 @@ export class DataService {
              {headers: httpOptions.headers, observe: 'response'});
     }
 
-    public deletePicture(id: number) {
-        return this.http.delete(environment.webApiBaseUrl + '/Photo/?id=' + JSON.stringify(id), httpOptions);
+    public deletePicture(id: string) {
+        return this.http.delete(environment.webApiBaseUrl + '/Photo/' + id, httpOptions);
     }
 
     public putPicture(picture: Picture){
@@ -52,12 +52,12 @@ export class DataService {
     }
 
     public deleteAlbum(id: number) {
-        return this.http.delete(environment.webApiBaseUrl + '/Album/?id=' + JSON.stringify(id), httpOptions);
+        return this.http.delete(environment.webApiBaseUrl + '/Album/' + id, httpOptions);
     }
 
     // User Methods
     public getUsers(): Observable<any> {
-        return this.http.get<User[]>(environment.webApiBaseUrl + '/User', {
+        return this.http.get<User[]>(environment.webApiBaseUrl + '/User/GetAll', {
             responseType: 'json'
         });
     }

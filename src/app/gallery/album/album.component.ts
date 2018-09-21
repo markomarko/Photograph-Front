@@ -116,4 +116,6 @@ import { DomSanitizer } from '@angular/platform-browser';
         });
         console.log(this.selectedFile);
     }
+
+    
   }

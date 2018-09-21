@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/interceptor';
@@ -30,8 +32,8 @@ import { Step4Component } from './auth/register/step4/step4.component';
 import { Step5Component } from './auth/register/step5/step5.component';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader/loader.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { ModalComponent } from './suspendedUserModal/modal.component';
+import { SuspendedUserModalService } from './suspendedUserModal/suspendedUserModal.service';
 
 const HomeChildRoutes = [
   { path: 'Dashboard', component: HomeComponent },
@@ -40,13 +42,25 @@ const HomeChildRoutes = [
     path: 'Gallery',
     component: GalleryComponent,
     canActivate: [AuthGuard],
-    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole, RoleConstants.clientRole] }
+    data: {
+      roles: [
+        RoleConstants.adminRole,
+        RoleConstants.subscriberRole,
+        RoleConstants.clientRole
+      ]
+    }
   },
   {
     path: 'Gallery/Album/:id',
     component: AlbumComponent,
     canActivate: [AuthGuard],
-    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole, RoleConstants.clientRole] }
+    data: {
+      roles: [
+        RoleConstants.adminRole,
+        RoleConstants.subscriberRole,
+        RoleConstants.clientRole
+      ]
+    }
   },
   {
     path: 'Customer',
@@ -80,7 +94,13 @@ const routes: Routes = [
     component: HomeComponent,
     children: HomeChildRoutes,
     canActivate: [AuthGuard],
-    data: { roles: [RoleConstants.adminRole, RoleConstants.subscriberRole, RoleConstants.clientRole] }
+    data: {
+      roles: [
+        RoleConstants.adminRole,
+        RoleConstants.subscriberRole,
+        RoleConstants.clientRole
+      ]
+    }
   },
   {
     path: 'Pricing',
@@ -114,7 +134,8 @@ const routes: Routes = [
     Step3Component,
     Step4Component,
     Step5Component,
-    LoaderComponent
+    LoaderComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -126,12 +147,14 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     DataService,
     AuthGuard,
     AuthService,
     LoaderService,
+    SuspendedUserModalService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -140,4 +163,4 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

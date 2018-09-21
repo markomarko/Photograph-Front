@@ -8,11 +8,12 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoaderService } from '../loader/loader.service';
-import { tap } from '../../../node_modules/rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { SuspendedUserModalService } from '../suspendedUserModal/suspendedUserModal.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private loader: LoaderService) {}
+  constructor(private loader: LoaderService, private suspendedUserModal: SuspendedUserModalService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const jwt = localStorage.access_token;
 
@@ -35,8 +36,15 @@ export class TokenInterceptor implements HttpInterceptor {
         },
         (err: any) => {
           this.loader.hide();
+          this.checkErrorCode(err.error);
         }
       )
     );
+  }
+
+  private checkErrorCode(errorCode: string) {
+    if (errorCode == '101') {
+      this.suspendedUserModal.show();
+    }
   }
 }

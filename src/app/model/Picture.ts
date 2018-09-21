@@ -2,7 +2,7 @@
 export class Picture {
 
     id: number;
-    albumId: number;
+    albumId: string;
     userId: string;
     name: string;
     context: string;
@@ -13,6 +13,6 @@ export class Picture {
         this.name = name;
         this.context = image;
         this.selected = false;
-        this.albumId = +albid;
+        this.albumId = albid;
     }
 }
