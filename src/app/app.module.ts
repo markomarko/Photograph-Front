@@ -34,6 +34,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader/loader.service';
 import { ModalComponent } from './suspendedUserModal/modal.component';
 import { SuspendedUserModalService } from './suspendedUserModal/suspendedUserModal.service';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 const HomeChildRoutes = [
   { path: 'Dashboard', component: HomeComponent },
@@ -147,7 +148,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     DataService,

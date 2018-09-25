@@ -10,12 +10,12 @@ export class Album {
       ownerId: string,
       name: string,
       description: string,
-      userlist: string
+      userlist: Array<string>
     ) {
       this.ownerId = ownerId;
       this.name = name;
       this.description = description;
       this.dateTime = new Date();
-      this.usersWithAccess.push(userlist);
+      this.usersWithAccess = userlist;
     }
   }

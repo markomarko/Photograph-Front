@@ -20,6 +20,10 @@ export class GalleryComponent implements OnInit {
   public clients: User[];
   public clientid: any;
 
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings = {};
+
 
   constructor(private router: Router, private data: DataService) {
   }
@@ -29,13 +33,44 @@ export class GalleryComponent implements OnInit {
       .subscribe(data => this.albums = data);
 
       this.data.getUsers().subscribe(data => {
-        this.clients = data;
+        this.dropdownList = data;
       });
+
+      this.dropdownSettings = {
+        singleSelection: false,
+        idField: 'id',
+        textField: 'userName',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 10,
+        allowSearchFilter: true
+      };
+  }
+
+  onItemSelect (item: User) {
+    console.log(item);
+    this.selectedItems.push(item.id);
+  }
+  onSelectAll (items: User[]) {
+    items.forEach(element => {
+      this.selectedItems.push(element.id);
+    });
+  }
+
+  onItemDeSelect(item: User) {
+    const index = this.selectedItems.indexOf(item.id, 0);
+    if (index > -1) {
+      this.selectedItems.splice(index, 1);
+    }
+  }
+
+  onDeSelectAll(items: User[]) {
+    this.selectedItems = [];
   }
 
   newAlbum(form: NgForm) {
     let id = this.data.getUserId();
-    let album = new Album(id, form.value.name, form.value.description, this.clientid);
+    let album = new Album(id, form.value.name, form.value.description, this.selectedItems);
     this.data.postAlbum(album)
       .subscribe(() => {
         this.ngOnInit();
